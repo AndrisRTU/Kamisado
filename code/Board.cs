@@ -15,7 +15,7 @@ namespace Kamisado
 		public Board() => InitBoard();
 
 		private void InitBoard()
-        {
+        	{
 			for (int i = 0; i < Size; i++) {
 				Cells[(0 + 9 * i) % (Size), i] = FigureColor.Orange;
 				Cells[(1 + 3 * i) % (Size), i] = FigureColor.Blue;
