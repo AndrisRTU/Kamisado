@@ -11,7 +11,7 @@ namespace Kamisado
 	{
 		private readonly Board GameBoard;
 		private readonly FigureController WhitePlayerFigureController;
-        private readonly FigureController BlackPlayerFigureController;
+        	private readonly FigureController BlackPlayerFigureController;
 		private readonly GameSituation GameSituation = new();
 
 		public event Action<List<Coordinate>> MoveCalculated;
