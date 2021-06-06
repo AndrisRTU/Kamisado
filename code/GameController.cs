@@ -119,9 +119,9 @@ namespace Kamisado
 							return;
 						}
 						if (BlackPlayerFigureController.Figures[i].Coordinate == move)
-                        {
+                        			{
 							return;
-                        }
+                        			}
 					}
 					AvailableCoordinates.Add(move);
 				}
