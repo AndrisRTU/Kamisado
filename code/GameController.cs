@@ -11,7 +11,7 @@ namespace Kamisado
 	{
 		private readonly Board GameBoard;
 		private readonly FigureController WhitePlayerFigureController;
-        	private readonly FigureController BlackPlayerFigureController;
+        private readonly FigureController BlackPlayerFigureController;
 		private readonly GameSituation GameSituation = new();
 
 		public event Action<List<Coordinate>> MoveCalculated;
@@ -48,27 +48,25 @@ namespace Kamisado
 		{
 			byte leftBiase = 0;
 			byte rightBiase = 0;
+			sbyte yBiase = 0;
+			FigureController Controller;
 			if (GameSituation.Turn == Player.White)
 			{
-				Coordinate coordinate = WhitePlayerFigureController.GetFigureCoordinate(GameSituation.Color);
-				if (coordinate.X == 0) leftBiase = 1;
-				if (coordinate.X == 7) rightBiase = 1;
-				for (sbyte i = (sbyte)(-1 + leftBiase); i <= 1 - rightBiase; i++)
-				{
-					if (!BlackPlayerFigureController.IsCellOccupied((byte)(coordinate.X + i), (byte)(coordinate.Y - 1)) &&
-						!WhitePlayerFigureController.IsCellOccupied((byte)(coordinate.X + i), (byte)(coordinate.Y - 1))) return true;
-				}
+				Controller = WhitePlayerFigureController;
+				yBiase = 1;
 			}
 			else
 			{
-				Coordinate coordinate = BlackPlayerFigureController.GetFigureCoordinate(GameSituation.Color);
-				if (coordinate.X == 0) leftBiase = 1;
-				if (coordinate.X == 7) rightBiase = 1;
-				for (sbyte i = (sbyte)(-1 + leftBiase); i <= 1 - rightBiase; i++)
-				{
-					if (!BlackPlayerFigureController.IsCellOccupied((byte)(coordinate.X + i), (byte)(coordinate.Y + 1)) &&
-						!WhitePlayerFigureController.IsCellOccupied((byte)(coordinate.X + i), (byte)(coordinate.Y + 1))) return true;
-				}
+				Controller = BlackPlayerFigureController;
+				yBiase = -1;
+			}
+			Coordinate coordinate = Controller.GetFigureCoordinate(GameSituation.Color);
+			if (coordinate.X == 0) leftBiase = 1;
+			if (coordinate.X == 7) rightBiase = 1;
+			for (sbyte i = (sbyte)(-1 + leftBiase); i <= 1 - rightBiase; i++)
+			{
+				if (!BlackPlayerFigureController.IsCellOccupied((byte)(coordinate.X + i), (byte)(coordinate.Y - yBiase)) &&
+					!WhitePlayerFigureController.IsCellOccupied((byte)(coordinate.X + i), (byte)(coordinate.Y - yBiase))) return true;
 			}
 			return false;
 		}
