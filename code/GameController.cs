@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +11,7 @@ namespace Kamisado
 	{
 		private readonly Board GameBoard;
 		private readonly FigureController WhitePlayerFigureController;
-        	private readonly FigureController BlackPlayerFigureController;
+        private readonly FigureController BlackPlayerFigureController;
 		private readonly GameSituation GameSituation = new();
 
 		public event Action<List<Coordinate>> MoveCalculated;
@@ -119,9 +119,9 @@ namespace Kamisado
 							return;
 						}
 						if (BlackPlayerFigureController.Figures[i].Coordinate == move)
-                        			{
+                        {
 							return;
-                        			}
+                        }
 					}
 					AvailableCoordinates.Add(move);
 				}
